@@ -37,6 +37,15 @@ export class UserService {
   }
 
 
+  getUserDetails(id: number): Observable<UserList> {
+    return this.http.get<UserList>(this.apiURL + '/api/users/'+ id)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+
   // HttpClient API delete() method => Delete user
   deleteUser(userId: number){
     return this.http.delete<UserList>(this.apiURL + '/api/users/' + userId, this.httpOptions)

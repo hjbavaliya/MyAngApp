@@ -19,7 +19,7 @@
                     <td>{{user.first_name }} {{user.last_name }}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <button type="button" class="btn btn-success" routerLink="/user-edit/{{user.id}}">Edit</button> &nbsp;
+                        <a type="button" class="btn btn-success" routerLink="/userdetail/{{user.id}}">Details</a> &nbsp;
                         <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
                     </td>
                 </tr>

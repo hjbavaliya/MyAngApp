@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { User, UserList } from '../CustomModels/UserViewModel';
 import { UserService } from '../Services/UserService';
 
@@ -10,7 +11,7 @@ import { UserService } from '../Services/UserService';
 export class UsersComponent implements OnInit {
 
   userList: any;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
 
@@ -20,14 +21,17 @@ export class UsersComponent implements OnInit {
 
   // Get user list
   getUserList() {
+    this.spinnerService.show();
     return this.userService.getUserList().subscribe((data: any) => {
       this.userList = data;
-      //console.log(this.userList);
+      this.spinnerService.hide();
     });
   }
 
+
+
   deleteUser(userId: number) {
-    if (window.confirm('Are you sure, you want to delete?')){
+    if (window.confirm('Are you sure, you want to delete?')) {
       this.userService.deleteUser(userId).subscribe(data => {
         this.getUserList()
       })
