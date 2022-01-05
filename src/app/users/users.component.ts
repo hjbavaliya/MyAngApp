@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User, UserList } from '../CustomModels/UserViewModel';
+import { UserService } from '../Services/UserService';
 
 @Component({
   selector: 'app-users',
@@ -7,15 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  count: number = 0;
-  constructor() { }
+  userList: any;
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
 
+    this.getUserList();
+
   }
 
-  UpdateCount() {
-    this.count += 1;
+  // Get user list
+  getUserList() {
+    return this.userService.getUserList().subscribe((data: any) => {
+      this.userList = data;
+      //console.log(this.userList);
+    });
   }
 
+  deleteUser(userId: number) {
+    if (window.confirm('Are you sure, you want to delete?')){
+      this.userService.deleteUser(userId).subscribe(data => {
+        this.getUserList()
+      })
+    }
+  }
 }

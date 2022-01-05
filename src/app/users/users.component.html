@@ -1,5 +1,29 @@
-<p>users works!</p>
-
-<button (click)="UpdateCount()">Click Me to increase count!</button><br>
-<strong>Count: {{count}}</strong>
-
+<div class="container custom-container-2">
+    <div class="col-md-12 ">
+        <div class="d-flex justify-content-between ">
+            <h2 class="mb-3">User List</h2>
+            <button  type="button" class="btn btn-link" routerLink="/create-user">Add User</button>
+        </div>
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">User Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList.data">
+                    <td>{{user.id}}</td>
+                    <td>{{user.first_name }} {{user.last_name }}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" routerLink="/user-edit/{{user.id}}">Edit</button> &nbsp;
+                        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
